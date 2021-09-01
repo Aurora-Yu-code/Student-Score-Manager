@@ -26,6 +26,11 @@ INSERT INTO `teacher_users` VALUES ('2', '2002', '李二','1234');
 
 select * from teacher_users;
 
+/*给学生成绩表插入数据*/
+INSERT INTO `teacher` VALUES ('2', '2001', '张一', '2','chinese');
+INSERT INTO `teacher` VALUES ('2', '2001', '张一', '2','math');
+INSERT INTO `teacher` VALUES ('2', '2001', '张一', '2','english');
+
 
 /*给系统管理员用户表插入数据*/
 INSERT INTO `sys_manager_users` VALUES ('1', '3001','1234');
@@ -41,6 +46,21 @@ INSERT INTO `courses` coursename VALUES 'chemistry';
 INSERT INTO `courses` coursename VALUES 'geography';
 INSERT INTO `courses` coursename VALUES 'music';
 INSERT INTO `courses` coursename VALUES 'draw';
+
+SELECT * FROM courses;
+
+ALTER TABLE courses ADD(courseid INT);
+
+UPDATE `courses` SET courseid = '101' WHERE `id` = '1';
+UPDATE `courses` SET courseid = '102' WHERE `id` = '2';
+UPDATE `courses` SET courseid = '103' WHERE `id` = '3';
+UPDATE `courses` SET courseid = '104' WHERE `id` = '4';
+UPDATE `courses` SET courseid = '105' WHERE `id` = '5';
+UPDATE `courses` SET courseid = '106' WHERE `id` = '6';
+UPDATE `courses` SET courseid = '107' WHERE `id` = '7';
+UPDATE `courses` SET courseid = '108' WHERE `id` = '8';
+UPDATE `courses` SET courseid = '109' WHERE `id` = '9';
+UPDATE `courses` SET courseid = '110' WHERE `id` = '10';
 
 
 {

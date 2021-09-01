@@ -2,6 +2,7 @@ package com.scores.demo.services.Impl;
 
 
 import com.scores.demo.Mapper.CourseMapper;
+import com.scores.demo.Mapper.coursesmapper;
 import com.scores.demo.common.DBUtils;
 import com.scores.demo.common.Message;
 import com.scores.demo.common.ResultUtils;
@@ -35,6 +36,10 @@ public class SysManagerServiceImpl implements SysManagerService {
 
     @Autowired
     private CoursesMapper coursesMapper;
+
+    //自定义mapper xml文件
+    @Autowired
+    private coursesmapper coursesmapper;
 
     @Autowired
     private CourseMapper courseMapper;
@@ -78,7 +83,7 @@ public class SysManagerServiceImpl implements SysManagerService {
         return ResultUtils.success(course);
     }
 */
-    @Override
+ /*   @Override
     public Message addCourse(String courseName) {
         //先判断是否存在该课程，当课程不存在时再进行添加
         if(queryCourses(courseName)){
@@ -100,16 +105,71 @@ public class SysManagerServiceImpl implements SysManagerService {
         }
         return ResultUtils.success(course);
     }
+    */
+
+    @Override
+    public Message addCourse(String courseName) {
+        //先判断是否存在该课程，当课程不存在时再进行添加
+        if(queryCourse(courseName)){
+            return ResultUtils.error(404,"课程已存在");
+        }
+        //向课程表里添加课程
+        int rs = coursesmapper.insertCourse(courseName);
+        if(rs<=0){
+            //手动设置回滚
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+            return ResultUtils.error(404,"添加失败");
+        }
+        int rs1 = courseMapper.alterTableField(courseName);
+        if(rs1 == 0){
+            //手动设置回滚
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+            return ResultUtils.error(404,"添加失败");
+        }
+        return ResultUtils.success(courseName);
+    }
+
+    @Override
+    public Message deleteCourse(String courseName) {
+        //先判断是否存在该课程，当课程存在时才可以删除
+        if(!queryCourse(courseName)){
+            return ResultUtils.error(404,"课程不存在");
+        }
+        int rs = coursesmapper.deleteByCourse(courseName);
+        if(rs<=0){
+            //手动设置回滚
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+            return ResultUtils.error(404,"删除失败");
+        }
+        int rs1 = coursesmapper.deleteTableField(courseName);
+        if(rs1 == 0){
+            //手动设置回滚
+            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+            return ResultUtils.error(404,"删除失败");
+        }
+        return ResultUtils.success(courseName);
+    }
+
+
 
     @Override
     public boolean queryCourses(String courseName) {
         //查询courseName是否存在
         List<Courses> coursesList = coursesMapper.selectByExample(new CoursesExample());
-        for(Courses course:coursesList){
-            if(course.getCoursename().equals(courseName)){
-                return true;
-            }
+        if(coursesList == null || coursesList.size() < 1){
+            return false;
         }
         return false;
+    }
+
+    public boolean queryCourse(String courseName) {
+        //查询courseName是否存在
+        com.scores.demo.pojo.Courses course = coursesmapper.selectByCourse(courseName);
+        if(course == null){
+            return false;
+        }else {
+            System.out.println(course.getCoursename());
+            return true;
+        }
     }
 }

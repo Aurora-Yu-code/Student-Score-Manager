@@ -15,4 +15,5 @@ public interface CourseMapper {
 
     @Select("alter table student_score add ${fieldname} varchar(255)")
     int alterTableField(@Param("fieldname") String fieldname);
+
 }

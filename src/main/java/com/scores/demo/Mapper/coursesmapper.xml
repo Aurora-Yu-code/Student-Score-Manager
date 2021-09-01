@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org/DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.scores.demo.Mapper.coursesmapper">
+    <resultMap id="BaseResultMap" type="com.scores.demo.pojo.Courses">
+        <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="coursename" jdbcType="VARCHAR" property="coursename" />
+        <result column="courseid" jdbcType="VARCHAR" property="courseid" />
+    </resultMap>
+
+    <!--根据id查询课程-->
+    <select id="selectById" resultMap="BaseResultMap">
+        select * from courses
+        where id = #{id}
+    </select>
+
+    <!--根据课程名查询课程-->
+    <select id="selectByCourse" resultMap="BaseResultMap">
+        select * from courses
+        where coursename = #{coursename}
+    </select>
+
+    <!--查询全部课程-->
+    <select id="selectAll" resultMap="BaseResultMap">
+        select * from courses
+    </select>
+
+    <!--根据id删除课程-->
+    <delete id="deleteById" parameterType="java.lang.Integer">
+        delete from courses
+        where id = #{id,jdbcType=INTEGER}
+    </delete>
+
+    <!--根据课程名删除课程-->
+    <delete id="deleteByCourse" parameterType="java.lang.String">
+        delete from courses
+        where coursename = #{coursename}
+    </delete>
+
+    <!--插入一个课程-->
+    <insert id="insertCourse" parameterType="java.lang.String" useGeneratedKeys="true">
+        insert into courses(coursename)
+        values (#{coursename,jdbcType=VARCHAR})
+    </insert>
+
+    <!--添加字段-->
+    <select id="alterTableField" parameterType="java.lang.String">
+        alter table student_score
+        add ${fieldname} varchar(255)
+    </select>
+
+    <!--删除字段-->
+    <select id="deleteTableField" parameterType="java.lang.String">
+        alter table student_score
+        drop column ${fieldname}
+    </select>
+
+
+
+</mapper>

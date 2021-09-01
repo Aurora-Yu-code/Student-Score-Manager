@@ -1,0 +1,97 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+html {
+    height: 100%;
+}
+
+body {
+    background-color: rgba(249, 249, 239, 0.7);
+    height: 100%;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    /*实现块级元素垂直居中*/
+    justify-content: center;
+    align-items: center;
+}
+
+.image img {
+    /*实现图片自适应屏幕大小*/
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -10;
+}
+
+.list {
+    width: 800px;
+    background-color: rgba(253, 255, 255, 0.7);
+    color: #93a894;
+    border-radius: 8px;
+    padding: 50px;
+}
+
+.list .header{
+    text-align: center;
+    font-size: 30px;
+    line-height: 50px;
+    margin-bottom: 5px;
+}
+
+.list .text{
+    text-align: center;
+    font-size: 15px;
+    line-height: 50px;
+    margin-bottom: 10px;
+}
+
+.list .input  {
+    background-color: rgb(255, 250, 245);
+    border: 1px;
+    width: 30%;
+    line-height: 30px;
+    text-align: center;
+    font-size: 15px;
+    color: rgba(0, 0, 0, 0.97);
+    outline: none;
+    margin-bottom: 10px;
+    border: 1px solid #d2e8db;
+}
+
+.list .btn-list {
+    background-color: rgb(255, 250, 245);
+    width: 80%;
+    border: 2px solid #6bbb97;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 10px;
+    text-align: center;
+    line-height: 40px;
+    text-transform: uppercase;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: .3s;
+}
+
+.list .text btn-logout {
+    background-color: rgb(255, 250, 245);
+    width: 30%;
+    border: 2px solid #6bbb97;
+    margin-left: 20px;
+    margin-right: auto;
+    margin-bottom: 10px;
+    text-align: center;
+    line-height: 30px;
+    text-transform: uppercase;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: .3s;
+}
+
+.list .btn-list:hover {
+    background-color: #7abbb6;
+}

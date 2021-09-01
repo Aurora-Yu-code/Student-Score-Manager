@@ -1,0 +1,117 @@
+* {
+    padding: 0;
+    margin: 0;
+}
+
+html {
+    height: 100%;
+}
+
+body {
+    background-color: rgba(249, 249, 239, 0.7);
+    height: 100%;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    /*实现块级元素垂直居中*/
+    justify-content: center;
+    align-items: center;
+}
+
+.image img {
+    /*实现图片自适应屏幕大小*/
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -10;
+}
+
+.login {
+    width: 300px;
+    background-color: rgba(131, 179, 145, 0.7);
+    color: aliceblue;
+    border-radius: 8px;
+    padding: 50px;
+}
+
+
+
+
+.login .header {
+    text-align: center;
+    font-size: 30px;
+    line-height: 100px;
+}
+
+
+
+.login .input input {
+    background-color: rgb(237, 255, 239);
+    border: 0px;
+    width: 100%;
+    text-align: center;
+    font-size: 15px;
+    color: rgba(0, 0, 0, 0.97);
+    outline: none;
+}
+
+.login .input input::placeholder {
+    text-transform: uppercase;
+}
+
+.login .input-border {
+    /*实现颜色从左到右渐变效果*/
+    background-image: linear-gradient(to right, #b3cee8, #71a7bb);
+    height: 45px;
+    width: 100%;
+    margin-bottom: 20px;
+    border-radius: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: .3s;
+}
+
+.login .input-border .border {
+    /*这里使用了css3的calc()方法用于自动计算宽高*/
+    height: calc(100% - 4px);
+    width: calc(100% - 4px);
+    border-radius: 25px;
+    font-size: 14px;
+}
+
+.login .btn-login {
+    background-color: rgb(255, 250, 245);
+    width: 100%;
+    border: 2px solid #6bbb97;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 10px;
+    text-align: center;
+    line-height: 40px;
+    text-transform: uppercase;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: .3s;
+}
+
+.login .btn-login:hover {
+    background-color: #7abbb6;
+}
+
+.login .icon {
+    text-align: center;
+    width: 60%;
+    margin: 0 auto;
+    margin-top: 18px;
+    border-top: 1px dashed #eee;
+    padding-top: 13px;
+}
+
+.login .icon i {
+    font-size: 18px;
+    color: rgb(187, 187, 187);
+    cursor: pointer;
+    padding: 0 5px;
+}
