@@ -27,7 +27,13 @@
 - mongodb
 
 
+**新加功能**
+- 整合Swagger2实现接口在线文档
+点击localhost:8080/swagger-ui.html 即可访问
 
+- 整合Elasticsearch实现搜索，使用postman调用
+
+- 设计了几个前端页面，用于用户登录、注册和修改密码
 
 
 
