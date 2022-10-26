@@ -18,6 +18,21 @@ public interface UsersService {
     Message login(String number, String password);
 
     /**
+     * 根据手机号生成验证码
+     * @param telephone
+     * @return
+     */
+    Message generateAuthCode(String telephone);
+
+    /**
+     * 验证验证码
+     * @param telephone
+     * @param authCode
+     * @return
+     */
+    Message verifyAuthCode(String telephone,String authCode);
+
+    /**
      * 注册用户
      * @param registerParam
      * @return

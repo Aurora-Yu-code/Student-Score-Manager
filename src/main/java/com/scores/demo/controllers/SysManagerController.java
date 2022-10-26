@@ -22,7 +22,6 @@ public class SysManagerController {
 
     @ApiOperation("修改密码接口")
     @RequestMapping("/updatePassword")
-    @ResponseBody
     public Message updatePassword(@Validated @RequestBody UpdateParam updateParam){
         return sysManagerService.updatePassword(updateParam.getNumber(),
                 updateParam.getOldPassword(),updateParam.getNewPassword());
@@ -30,7 +29,6 @@ public class SysManagerController {
 
     @ApiOperation("添加课程接口")
     @RequestMapping("/addCourse")
-    @ResponseBody
     public Message addCourse(@RequestParam("courseName") String courseName){
         //添加完课程后要重启Generator
         return sysManagerService.addCourse(courseName);
@@ -38,7 +36,6 @@ public class SysManagerController {
 
     @ApiOperation("删除课程接口")
     @RequestMapping("/deleteCourse")
-    @ResponseBody
     public Message deleteCourse(@RequestParam("courseName") String courseName){
         //添加完课程后要重启Generator
         return sysManagerService.deleteCourse(courseName);

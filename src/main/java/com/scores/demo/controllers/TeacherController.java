@@ -24,7 +24,6 @@ public class TeacherController {
 
     @ApiOperation("添加学生所有学科分数接口")
     @RequestMapping("/addScore")
-    @ResponseBody
     public List<Message> addScore(@Validated @RequestBody List<StudentScoreParam> studentScore){
         List<Message> mesList = new ArrayList<>();
         for(StudentScoreParam score:studentScore){
@@ -36,7 +35,6 @@ public class TeacherController {
 
     @ApiOperation("添加学生某个学科分数接口")
     @RequestMapping("/addScorebyCourse")
-    @ResponseBody
     public List<Message> addCourseScore(@Validated @RequestBody List<ScoreParam> studentScore){
         List<Message> mesList = new ArrayList<>();
         for(ScoreParam score:studentScore){
@@ -48,7 +46,6 @@ public class TeacherController {
 
     @ApiOperation("查询学生所有学科分数接口")
     @RequestMapping("/listAll")
-    @ResponseBody
     public Message listAllScores(){
         List<StudentScore> studentScoreList = teacherService.listAllScores();
         if(studentScoreList == null && studentScoreList.size() <= 0){
@@ -59,14 +56,12 @@ public class TeacherController {
 
     @ApiOperation("查询学生某个学科分数接口")
     @RequestMapping("/listAllbyCourse")
-    @ResponseBody
     public Message listAllScoresbyCourse(@RequestParam("courseName") String courseName){
         return teacherService.listAllScoresbyCourse(courseName);
     }
 
     @ApiOperation("分页查询学生所有学科分数接口")
     @RequestMapping("/listPage")
-    @ResponseBody
     public Message listPage(@RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
                             @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize){
         List<StudentScore> studentScoreList = teacherService.listPage(pageNum, pageSize);
@@ -78,7 +73,6 @@ public class TeacherController {
 
     @ApiOperation("分页查询学生某个学科分数接口")
     @RequestMapping("/listPagebyCourse")
-    @ResponseBody
     public Message listPagebyCourse(@RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum,
                                     @RequestParam(value = "pageSize", defaultValue = "5") Integer pageSize,
                                      @RequestParam("courseName") String courseName){

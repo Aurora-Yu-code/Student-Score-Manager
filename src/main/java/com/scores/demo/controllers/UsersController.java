@@ -25,25 +25,43 @@ public class UsersController {
 
     @ApiOperation("测试接口")
     @RequestMapping(value = "/hello")
-    public Message hello(){ return ResultUtils.success(); }
+    public Message hello(){
+        return ResultUtils.success();
+    }
 
     @ApiOperation("用户登录接口")
     @RequestMapping(value = "/login",method = RequestMethod.POST)
-    @ResponseBody
     public Message login(@Validated @RequestBody LoginParam loginparam){
         return usersService.login(loginparam.getNumber(),loginparam.getPassword());
+    }
+//    @ApiOperation("用户登录接口")
+//    @RequestMapping(value = "/login/{number}/{password}")
+//    public Message login(@PathVariable("number") String number, @PathVariable("password") String password){
+////        return usersService.login(number,password);
+//        return ResultUtils.success(number+password);
+//    }
+
+    @ApiOperation("用户获取验证码")
+    @RequestMapping("/getAuthCode")
+    public Message getAuthCode(@RequestParam String telephone){
+        return usersService.generateAuthCode(telephone);
+    }
+
+    @ApiOperation("判断验证码是否正确")
+    @RequestMapping("/verifyAuthCode")
+    public Message getAuthCode(@RequestParam String telephone,
+                               @RequestParam String authCode){
+        return usersService.verifyAuthCode(telephone,authCode);
     }
 
     @ApiOperation("用户注册接口")
     @RequestMapping(value = "/register")
-    @ResponseBody
     public Message register(@Validated @RequestBody RegisterParam registerParam){
         return usersService.register(registerParam);
     }
 
     @ApiOperation("用户修改密码接口")
     @RequestMapping("/updatePassword")
-    @ResponseBody
     public Message updatePassword(@Validated @RequestBody UpdateParam updateParam){
         return usersService.updatePassword(updateParam.getNumber(), updateParam.getOldPassword(),
                 updateParam.getNewPassword());

@@ -42,6 +42,19 @@ body {
     margin-bottom: 5px;
 }
 
+.list.table{
+    text-align: center;
+    border: 1px #93a894;
+    width: 20px;
+
+}
+.list.table .ta{
+    text-align: center;
+    border: 1px #93a894;
+    width: 20px;
+
+}
+
 .list .text{
     text-align: center;
     font-size: 15px;

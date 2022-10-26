@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
+import springfox.documentation.service.ApiInfo;
 import springfox.documentation.service.Contact;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
@@ -20,17 +21,24 @@ public class SwaggerConfig {
     @Bean
     public Docket createRestApi() {
         return new Docket(DocumentationType.SWAGGER_2)
-                .pathMapping("./")
+                .apiInfo(apiInfo())
                 .select()
                 .apis(RequestHandlerSelectors.basePackage("com.scores.demo.controllers"))
                 .paths(PathSelectors.any())
-                .build().apiInfo(new ApiInfoBuilder()
-                        .title("成绩查询系统")
-                        .description("系统接口在线文档")
-                        .version("1.0")
-                        .contact(new Contact("Aurora", "https://github.com/Aurora-Yu-code",
-                                "1312401727@qq.com"))
-                        .build());
-
+                .build();
     }
+    public ApiInfo apiInfo(){
+        return new ApiInfoBuilder()
+                .title("成绩查询系统")
+                .description("系统接口在线文档")
+                .contact(new Contact("Aurora", "https://github.com/Aurora-Yu-code/Student-Score-Manager",
+                        "1312401727@qq.com")).version("1.0")
+                .build();
+    }
+
+
+
+
+
+
 }

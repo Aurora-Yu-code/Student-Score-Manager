@@ -52,8 +52,6 @@ public class UserControllerTest extends DemoApplicationTests {
         //断言，判断返回代码是否正确
         System.out.println(content);
         Assert.assertEquals(200, status);
-        //断言，判断返回的值是否正确
-        Assert.assertEquals("200", content);
     }
 
 

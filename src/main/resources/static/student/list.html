@@ -15,6 +15,7 @@
                 if (r != null) return unescape(r[2]); return null;
             }
         })(jQuery);
+
     </script>
 </head>
 <body>
@@ -34,6 +35,26 @@
     <div align="center" class="action">
         <button class="btn-list" onclick="list()">查询所有学科成绩</button>
     </div>
+    <div align="center">
+        <table align="center" border="1" width="20px">
+            <tr>
+                <th>id</th>
+                <th>number</th>
+                <th>name</th>
+                <th>chinese</th>
+                <th>math</th>
+                <th>english</th>
+                <th>physics</th>
+                <th>chemistry</th>
+                <th>geography</th>
+                <th>music</th>
+                <th>draw</th>
+                <th>sport</th>
+            </tr>
+            <tbody id="contend">
+            </tbody>
+        </table>
+    </div>
 </div>
 
 <script type="text/javascript">
@@ -41,6 +62,8 @@
     var number = $.getUrlParam('number');
 
     console.log(number);
+
+    console.log("11111111111111111111");
 
     window.onload = function(){
         $("#Number").val(number);
@@ -56,16 +79,51 @@
             success: successfunc,
             error: errorfunc
         });
+
     };
     function successfunc(message){
         <!--成功调用的函数-->
         //接收到后端返回的数据，并做处理
-        console.log(message)
+        console.log(message);
+        console.log(message.data);
         if(message.code == "404"){
-            alert("失败："+message.msg);
+            //alert("失败："+message.msg);
         }else{
-            alert("成功："+message.msg);
-            location.href = 'score.html?number='+$('#Number').val();
+            //alert("成功："+message.msg);
+            //显示后端的数据
+            var html = "";
+            // for (let i = 0; i < message.length; i++) {
+            //     html += "<tr>" +
+            //         "<td>" + message[i].data.id + "</td>" +
+            //         "<td>" + message[i].data.number + "</td>" +
+            //         "<td>" + message[i].data.name + "</td>" +
+            //         "<td>" + message[i].data.chinese + "</td>" +
+            //         "<td>" + message[i].data.math + "</td>" +
+            //         "<td>" + message[i].data.english + "</td>" +
+            //         "<td>" + message[i].data.physics + "</td>" +
+            //         "<td>" + message[i].data.chemistry + "</td>" +
+            //         "<td>" + message[i].data.geography + "</td>" +
+            //         "<td>" + message[i].data.music + "</td>" +
+            //         "<td>" + message[i].data.draw + "</td>" +
+            //         "<td>" + message[i].data.sport + "</td>" +
+            //         "</tr>"
+            // }
+            html += "<tr>" +
+                "<td>" + message.data.id + "</td>" +
+                "<td>" + message.data.number + "</td>" +
+                "<td>" + message.data.name + "</td>" +
+                "<td>" + message.data.chinese + "</td>" +
+                "<td>" + message.data.math + "</td>" +
+                "<td>" + message.data.english + "</td>" +
+                "<td>" + message.data.physics + "</td>" +
+                "<td>" + message.data.chemistry + "</td>" +
+                "<td>" + message.data.geography + "</td>" +
+                "<td>" + message.data.music + "</td>" +
+                "<td>" + message.data.draw + "</td>" +
+                "<td>" + message.data.sport + "</td>" +
+                "</tr>"
+            $("#contend").html(html);
+            console.log("11111111");
         }
     };
     function errorfunc() {

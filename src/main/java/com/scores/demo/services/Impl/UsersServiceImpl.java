@@ -1,31 +1,44 @@
 package com.scores.demo.services.Impl;
 
+import com.mysql.cj.util.StringUtils;
 import com.scores.demo.domain.UserReadHistory;
 import com.scores.demo.dto.RegisterParam;
 import com.scores.demo.mbg.mapper.UserMapper;
 import com.scores.demo.mbg.model.User;
 import com.scores.demo.mbg.model.UserExample;
+import com.scores.demo.services.RedisService;
 import com.scores.demo.services.UserReadHistoryService;
 import com.scores.demo.services.UsersService;
 import com.scores.demo.common.Message;
 import com.scores.demo.common.ResultUtils;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
 
 
 import java.util.List;
+import java.util.Random;
 
 @Service
 public class UsersServiceImpl implements UsersService {
+    @Value("${redis.key.prefix.authCode}")
+    private String REDIS_KEY_PREFIX_AUTH_CODE;
+
+    @Value("${redis.key.expire.authCode}")
+    private Long AUTH_CODE_EXPIRE_SECONDS;
+
     @Autowired
     private UserMapper userMapper;
 
     @Autowired
     private UserReadHistoryService userReadHistoryService;
 
+    @Autowired
+    private RedisService redisService;
 
     @Override
     public Message login(String number, String password) {
@@ -46,6 +59,34 @@ public class UsersServiceImpl implements UsersService {
                 judgeType(usersList.get(0).getType()),"用户登录");
         userReadHistoryService.create(userReadHistory);
         return ResultUtils.loginSuccess(usersList.get(0));
+    }
+
+    @Override
+    public Message generateAuthCode(String telephone) {
+        StringBuilder sb = new StringBuilder();
+        Random random = new Random();
+        for(int i=0;i<6;i++){
+            sb.append(random.nextInt(10)); //产生一个0-10 不包括10的随机数
+        }
+        //验证码绑定手机号并存储到redis
+        redisService.set(REDIS_KEY_PREFIX_AUTH_CODE + telephone, sb.toString());
+        redisService.expire(REDIS_KEY_PREFIX_AUTH_CODE + telephone,AUTH_CODE_EXPIRE_SECONDS);
+        System.out.println("验证码:" + sb);
+        return ResultUtils.success("获取验证码成功");
+    }
+
+    @Override
+    public Message verifyAuthCode(String telephone, String authCode) {
+        if(authCode.isEmpty()){
+            return ResultUtils.error(404,"请输入验证码");
+        }
+        String realAuthCode = redisService.get(REDIS_KEY_PREFIX_AUTH_CODE+telephone);
+        boolean result = authCode.equals(realAuthCode);
+        if(result){
+            return ResultUtils.success("验证码校验成功");
+        }else{
+            return ResultUtils.error(404,"验证码不正确");
+        }
     }
 
     @Transactional

@@ -22,7 +22,6 @@ public class StudentController {
 
     @ApiOperation("查询所有学科成绩接口")
     @RequestMapping("/list")
-    @ResponseBody
     public Message listScores(@Validated @RequestParam("number") String number){
         return studentService.listScores(number);
     }

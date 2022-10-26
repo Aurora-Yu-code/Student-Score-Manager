@@ -32,6 +32,9 @@
     <div class="action">
         <button onclick="window.location.href='users/updatePassword.html'" class="btn-login">修改密码</button>
     </div>
+    <div class="action">
+        <button onclick="window.location.href='users/loginCode.html'" class="btn-login">短信验证码登录</button>
+    </div>
 </div>
 <script type="text/javascript">
     function login() {
@@ -49,6 +52,7 @@
             number: number,
             password: password
         }
+
 
         $.ajax({
             type: "POST",    //访问类型
